@@ -72,12 +72,13 @@ EOF
 
 %{__mkdir_p} %{buildroot}%{_datadir}/applications
 
+# Replace gnome-lockscreen with system-lock-screen
 cat >> %{buildroot}%{_datadir}/applications/%{name}.desktop << EOF
 [Desktop Entry]
 Name=Xlock
 Comment=Screen Saver
 Encoding=UTF-8
-Icon=gnome-lockscreen
+Icon=system-lock-screen
 Exec=xlock
 Terminal=false
 Type=Application
