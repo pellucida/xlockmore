@@ -12,5 +12,5 @@ satified.
 
 ## Removed GL and Motif package build
 Since I only required support for Openbox I disabled Motif and GL support
-avoiding the need for those devel packages.
+avoiding the need for those devel packages. Replaced the gnome-lockscreen.png icon with system-lock-screen.png removing the need for gnome-icon-theme-legacy.
 
