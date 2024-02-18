@@ -10,11 +10,14 @@ Patch0: xlockmore-5.40-fix_exitcode.patch
 BuildRequires: gcc gcc-c++
 BuildRequires: pam-devel
 # BuildRequires: mesa-libGL-devel mesa-libGLU-devel
-BuildRequires: desktop-file-utils libXdmcp-devel
+BuildRequires: desktop-file-utils
+# This in Powertools on AL8 and codeready-builder-for-rhel-8-x86_64-rpms RHEL8
+BuildRequires: libXdmcp-devel
 #BuildRequires: motif-devel gtk2-devel
-BuildRequires: libXau-devel
+BuildRequires: libXau-devel libX11-devel libXext-devel libXt-devel
 
-# %if 0%{?rhel}
+# Suppress warning insert '\' between '%' and '{' in macros where commented out
+# %if 0%\{?rhel}
 # Requires: gnome-icon-theme
 # %else
 # Requires: gnome-icon-theme-legacy
@@ -24,7 +27,7 @@ BuildRequires: libXau-devel
 #%package motif
 #Group: Amusements/Graphics
 #Summary: Motif based frontend for xlockmore
-#Requires: %{name} = %{version}-%{release}
+#Requires: %\{name} = %\{version}-%\{release}
 
 #%description motif
 #Motif based frontend for xlockmore.
@@ -32,7 +35,7 @@ BuildRequires: libXau-devel
 #%package gtk
 #Group: Amusements/Graphics
 #Summary: GTK based frontend for xlockmore
-#Requires: %{name} = %{version}-%{release}
+#Requires: %\{name} = %\{version}-%\{release}
 
 #%description gtk
 #GTK based frontend for xlockmore.
@@ -44,6 +47,7 @@ Locks the local X display.
 %setup -q
 %patch0
 
+# Suppress warning for scsid - Wno-format was ''  now Wno-unused-const-variable
 %{__sed} -i -e "s,/lib,/%{_lib},g;s,-Wno-format,-Wno-unused-const-variable,g;" configure
 
 %build
@@ -52,8 +56,8 @@ Locks the local X display.
 
 %install
 %{__install} -D -m0755 xlock/xlock %{buildroot}%{_bindir}/xlock
-# %{__install} -D -m0755 xmlock/xmlock %{buildroot}%{_bindir}/xmlock
-#%{__install} -D -m0755 xglock/xglock %{buildroot}%{_bindir}/xglock
+# %{__install} -D -m0755 xmlock/xmlock %\{buildroot}%\{_bindir}/xmlock
+# %{__install} -D -m0755 xglock/xglock %\{buildroot}%\{_bindir}/xglock
 %{__install} -p -D -m0644 xlock/xlock.man %{buildroot}%{_mandir}/man1/xlock.1
 %{__install} -p -D -m0644 xlock/XLock.ad %{buildroot}%{_libdir}/X11/app-defaults/XLock
 # %{__install} -p -D -m0644 xmlock/XmLock.ad %{buildroot}%{_libdir}/X11/app-defaults/XmLock
@@ -101,11 +105,11 @@ desktop-file-install \
 %{_datadir}/applications/*
 
 #%files motif
-#%{_bindir}/xmlock
-#%{_libdir}/X11/app-defaults/XmLock
+#%\{_bindir}/xmlock
+#%\{_libdir}/X11/app-defaults/XmLock
 
 #%files gtk
-#%{_bindir}/xglock
+#%\{_bindir}/xglock
 
 %changelog
 * Sun Feb 18 2024 Pel Lucida <pellucida@e.email> - 5.55-5.1
