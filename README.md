@@ -14,6 +14,12 @@ Since I only required support for Openbox I disabled Motif and GL support avoidi
 
 Replaced the *gnome-lockscreen.png* icon with *system-lock-screen.png* removing the need for **gnome-icon-theme-legacy**.
 
+As I use startx rather than gdm the icon is probably unneeded.
+
+## Later version builds
+
+The most recent version from sillycycle **xlockmore-5.75.tar.xz** will build with the slightly modified spec file xlockmore-5.75.spec.
+
 ## License
 
 See **LICENSE** where the license from the upstream source is reproduced and is roughly a BSD style license.
